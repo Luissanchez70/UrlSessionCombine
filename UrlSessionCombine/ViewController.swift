@@ -6,14 +6,17 @@
 //
 
 import UIKit
+import Combine
 
 class ViewController: UIViewController {
 
+    var cancellable: AnyCancellable?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("iniciado")
-        let cancellable = FetchCharacters().execute().sink(receiveCompletion: { error in
-            print("error: \(error)")
+        cancellable = FetchSeries().execute(1011334).sink(receiveCompletion: { error in
+            print("completion: \(error)")
         }, receiveValue: { list in
             print("list: \(list)")
         })
