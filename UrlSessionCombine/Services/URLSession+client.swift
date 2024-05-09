@@ -17,6 +17,12 @@ public extension URLSession {
             .decode(type: Response.self, decoder: JSONDecoder())
             .eraseToAnyPublisher()
     }
+    
+    func fetch(for request: URLRequest) -> AnyPublisher<Data, Error> {
+        return self.dataTaskPublisher(for: request)
+            .tryMap (processResponse)
+            .eraseToAnyPublisher()
+    }
 }
 
 private extension URLSession {

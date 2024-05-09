@@ -12,13 +12,21 @@ class ViewController: UIViewController {
 
     var cancellable: AnyCancellable?
     
+    @IBOutlet weak var imge: UIImageView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
         print("iniciado")
-        cancellable = FetchSeries().execute(1011334).sink(receiveCompletion: { error in
+        cancellable = DownloadThumbnail().execute(path: "http://i.annihil.us/u/prod/marvel/i/mg/6/20/52602f21f29ec",exten: "jpg").sink(receiveCompletion: { error in
             print("completion: \(error)")
-        }, receiveValue: { list in
-            print("list: \(list)")
+        }, receiveValue: { img in
+            DispatchQueue.main.async {
+                self.imge.image = img
+            }
         })
        
         

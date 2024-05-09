@@ -22,6 +22,16 @@ extension URLComponents: Mapeable {
                            URLQueryItem(name: "hash", value: URLComponents.hash)]
     }
     
+    init(schema: String = "https", host: String = "i.annihil.us", path: String, exten: String) {
+        self.init()
+        self.scheme = schema
+        self.host = host
+        self.path = "/u/prod/marvel/i/mg\(path).\(exten)"
+        self.queryItems = [URLQueryItem(name: "ts", value: "1"),
+                           URLQueryItem(name: "apikey", value: URLComponents.apikey),
+                           URLQueryItem(name: "hash", value: URLComponents.hash)]
+    }
+    
     func addParams(name: String, value: String) -> Self {
         map {
             $0.queryItems?.append(URLQueryItem(name: name, value: value))
