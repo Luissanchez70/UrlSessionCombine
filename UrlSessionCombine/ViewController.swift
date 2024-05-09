@@ -11,7 +11,14 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        print("iniciado")
+        let cancellable = FetchCharacters().execute().sink(receiveCompletion: { error in
+            print("error: \(error)")
+        }, receiveValue: { list in
+            print("list: \(list)")
+        })
+       
+        
     }
 
 
